@@ -369,7 +369,7 @@ class ImageCropViewController: UIViewController {
     
     private func croppedImage(image: UIImage, cropRect: CGRect) -> UIImage {
         let croppedCGImage: CGImageRef = CGImageCreateWithImageInRect(image.CGImage, cropRect);
-        let croppedImage: UIImage = UIImage(CGImage: croppedCGImage, scale: 1.0, orientation: image.imageOrientation)!
+        let croppedImage: UIImage = UIImage(CGImage: croppedCGImage, scale: UIScreen.mainScreen().scale, orientation: image.imageOrientation)!
         return croppedImage.fixOrientation()
     }
     
