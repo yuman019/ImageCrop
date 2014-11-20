@@ -368,9 +368,10 @@ class ImageCropViewController: UIViewController {
     }
     
     private func croppedImage(image: UIImage, cropRect: CGRect) -> UIImage {
+        var image = image.fixImageOrientation()
         let croppedCGImage: CGImageRef = CGImageCreateWithImageInRect(image.CGImage, cropRect);
         let croppedImage: UIImage = UIImage(CGImage: croppedCGImage, scale: UIScreen.mainScreen().scale, orientation: image.imageOrientation)!
-        return croppedImage.fixOrientation()
+        return croppedImage
     }
     
     private func cropImage() {
@@ -601,7 +602,7 @@ class ImageCropViewController: UIViewController {
 }
 
 extension UIImage {
-    func fixOrientation() -> UIImage {
+    func fixImageOrientation() -> UIImage {
         
         // No-op if the orientation is already correct.
         if self.imageOrientation == UIImageOrientation.Up {
