@@ -269,10 +269,12 @@ class ImageCropViewController: UIViewController {
     
     func handleDoneButton(sender: AnyObject) {
         self.cropImage()
+        self.doneButton.enabled = false
     }
     
     func handleCancelButton(sender: AnyObject) {
         self.didCancelHandler?()
+        self.cancelButton.enabled = false
     }
     
     func handleDoubleTap(sender: UIGestureRecognizer) {
@@ -377,18 +379,6 @@ class ImageCropViewController: UIViewController {
     private func cropImage() {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             if let image = self.originalImage {
-                
-//                var rect: CGRect
-//                if self.cropMode == CropMode.fullScreen {
-//                    rect = CGRectMake(
-//                        CGRectGetMinX(self.cropRect()),
-//                        CGRectGetMinY(self.cropRect()),
-//                        self.cropSize!.width,
-//                        self.cropSize!.width)
-//                } else {
-//                    rect = self.cropRect()
-//                }
-                
                 let image = self.croppedImage(image, cropRect: self.cropRect())
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.didFinishCroppedHandler?(Image: image)
