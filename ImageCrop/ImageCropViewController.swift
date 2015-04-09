@@ -72,10 +72,6 @@ class ImageCropViewController: UIViewController {
         self.initialize(fullScreenCropModeWithImage, cropMode: ImageCropViewController.CropMode.fullScreen, cropSize: cropSize)
     }
     
-    override init() {
-        super.init()
-    }
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -315,7 +311,7 @@ class ImageCropViewController: UIViewController {
     
     private func displayImage() {
         if (self.originalImage != nil) {
-            self.imageScrollView.image = self.originalImage!
+            self.imageScrollView.scrollImage = self.originalImage!
             self.resetZoomScale(false)
         }
     }
@@ -397,7 +393,7 @@ class ImageCropViewController: UIViewController {
         var imageView: UIImageView?
         private var _image: UIImage?
         
-        var image: UIImage? {
+        var scrollImage: UIImage? {
             get {
                 return _image
             }
@@ -626,7 +622,7 @@ extension UIImage {
             break
         }
         
-        var ctx: CGContextRef = CGBitmapContextCreate(nil, UInt(self.size.width), UInt(self.size.height),
+        var ctx: CGContextRef = CGBitmapContextCreate(nil, Int(self.size.width), Int(self.size.height),
             CGImageGetBitsPerComponent(self.CGImage), 0,
             CGImageGetColorSpace(self.CGImage),
             CGImageGetBitmapInfo(self.CGImage))
