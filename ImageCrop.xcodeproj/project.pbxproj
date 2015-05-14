@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4BDC882A1B04B659000E76A6 /* ImageCropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDC88291B04B659000E76A6 /* ImageCropViewController.swift */; };
+		4BDC882D1B04B901000E76A6 /* ImageCropLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4BDC882F1B04B901000E76A6 /* ImageCropLocalizable.strings */; };
 		AAA573491A0B728E00914905 /* ImageCrop.h in Headers */ = {isa = PBXBuildFile; fileRef = AAA573481A0B728E00914905 /* ImageCrop.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AAA5734F1A0B728E00914905 /* ImageCrop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAA573431A0B728E00914905 /* ImageCrop.framework */; };
 		AAA573561A0B728E00914905 /* ImageCropTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA573551A0B728E00914905 /* ImageCropTests.swift */; };
@@ -23,6 +25,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4BDC88291B04B659000E76A6 /* ImageCropViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCropViewController.swift; sourceTree = "<group>"; };
+		4BDC882E1B04B901000E76A6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ImageCropLocalizable.strings; sourceTree = "<group>"; };
+		4BDC88301B04B91E000E76A6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/ImageCropLocalizable.strings; sourceTree = "<group>"; };
+		4BDC88311B04B946000E76A6 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/ImageCropLocalizable.strings"; sourceTree = "<group>"; };
 		AAA573431A0B728E00914905 /* ImageCrop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ImageCrop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA573471A0B728E00914905 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAA573481A0B728E00914905 /* ImageCrop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageCrop.h; sourceTree = "<group>"; };
@@ -72,6 +78,8 @@
 			isa = PBXGroup;
 			children = (
 				AAA573481A0B728E00914905 /* ImageCrop.h */,
+				4BDC88291B04B659000E76A6 /* ImageCropViewController.swift */,
+				4BDC882F1B04B901000E76A6 /* ImageCropLocalizable.strings */,
 				AAA573461A0B728E00914905 /* Supporting Files */,
 			);
 			path = ImageCrop;
@@ -175,6 +183,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ja,
+				"zh-Hant",
 			);
 			mainGroup = AAA573391A0B728E00914905;
 			productRefGroup = AAA573441A0B728E00914905 /* Products */;
@@ -192,6 +202,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BDC882D1B04B901000E76A6 /* ImageCropLocalizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BDC882A1B04B659000E76A6 /* ImageCropViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +241,19 @@
 			targetProxy = AAA573501A0B728E00914905 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4BDC882F1B04B901000E76A6 /* ImageCropLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4BDC882E1B04B901000E76A6 /* en */,
+				4BDC88301B04B91E000E76A6 /* ja */,
+				4BDC88311B04B946000E76A6 /* zh-Hant */,
+			);
+			name = ImageCropLocalizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		AAA573571A0B728E00914905 /* Debug */ = {
@@ -319,6 +344,7 @@
 		AAA5735A1A0B728E00914905 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -328,12 +354,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		AAA5735B1A0B728E00914905 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -395,6 +423,7 @@
 				AAA5735B1A0B728E00914905 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AAA5735C1A0B728E00914905 /* Build configuration list for PBXNativeTarget "ImageCropTests" */ = {
 			isa = XCConfigurationList;
@@ -403,6 +432,7 @@
 				AAA5735E1A0B728E00914905 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

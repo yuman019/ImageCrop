@@ -195,7 +195,7 @@ class ImageCropViewController: UIViewController {
     
     lazy var doneButton: UIButton! = {
         self.doneButton = UIButton()
-        self.doneButton.setTitle("決定", forState: UIControlState.Normal)
+        self.doneButton.setTitle(NSLocalizedString("ImageCrop.button.done", tableName: "ImageCropLocalizable", comment: ""), forState: UIControlState.Normal)
         self.doneButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         self.doneButton.titleLabel?.font = UIFont.systemFontOfSize(16.0)
         self.doneButton.backgroundColor = UIColor(red: 38.0/255.0, green: 193.0/255.0, blue: 85.0/255.0, alpha: 1.0)
@@ -207,7 +207,7 @@ class ImageCropViewController: UIViewController {
     
     lazy var cancelButton: UIButton! = {
         self.cancelButton = UIButton()
-        self.cancelButton.setTitle("キャンセル", forState: UIControlState.Normal)
+        self.cancelButton.setTitle(NSLocalizedString("ImageCrop.button.cancel", tableName: "ImageCropLocalizable", comment: ""), forState: UIControlState.Normal)
         self.cancelButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         self.cancelButton.titleLabel?.font = UIFont.systemFontOfSize(16.0)
         self.cancelButton.backgroundColor = UIColor.clearColor()
