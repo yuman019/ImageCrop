@@ -189,7 +189,7 @@ class ImageCropViewController: UIViewController {
         self.bottomView = UIView()
         self.bottomView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
         self.bottomView.userInteractionEnabled = true
-        self.bottomView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.bottomView.translatesAutoresizingMaskIntoConstraints = false
         return self.bottomView;
         }()
     
@@ -200,7 +200,7 @@ class ImageCropViewController: UIViewController {
         self.doneButton.titleLabel?.font = UIFont.systemFontOfSize(16.0)
         self.doneButton.backgroundColor = UIColor(red: 38.0/255.0, green: 193.0/255.0, blue: 85.0/255.0, alpha: 1.0)
         self.doneButton.addTarget(self, action: "handleDoneButton:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.doneButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.doneButton.translatesAutoresizingMaskIntoConstraints = false
         self.doneButton.layer.cornerRadius = 3.0
         return self.doneButton
         }()
@@ -212,7 +212,7 @@ class ImageCropViewController: UIViewController {
         self.cancelButton.titleLabel?.font = UIFont.systemFontOfSize(16.0)
         self.cancelButton.backgroundColor = UIColor.clearColor()
         self.cancelButton.addTarget(self, action: "handleCancelButton:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.cancelButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.cancelButton.translatesAutoresizingMaskIntoConstraints = false
         self.cancelButton.layer.cornerRadius = 3.0;
         return self.cancelButton
         }()
@@ -226,7 +226,7 @@ class ImageCropViewController: UIViewController {
     lazy var overlayView: ImageCropTouchView? = {
         self.overlayView = ImageCropTouchView(frame: CGRectZero)
         self.overlayView?.receiver = self.imageScrollView;
-        self.overlayView?.layer.addSublayer(self.maskLayer)
+        self.overlayView?.layer.addSublayer(self.maskLayer!)
         return self.overlayView
         }()
     
@@ -321,8 +321,8 @@ class ImageCropViewController: UIViewController {
     }
     
     private func maskRect () -> CGRect {
-        var originY: CGFloat = (self.cropMode == CropMode.fullScreen) ? 0 : (CGRectGetHeight(self.view.frame) - self.cropSize!.height) * 0.5
-        var maskRect: CGRect = CGRectMake((CGRectGetWidth(self.view.frame) - self.cropSize!.width) * 0.5,
+        let originY: CGFloat = (self.cropMode == CropMode.fullScreen) ? 0 : (CGRectGetHeight(self.view.frame) - self.cropSize!.height) * 0.5
+        let maskRect: CGRect = CGRectMake((CGRectGetWidth(self.view.frame) - self.cropSize!.width) * 0.5,
             originY,
             self.cropSize!.width,
             self.cropSize!.height)
@@ -330,12 +330,12 @@ class ImageCropViewController: UIViewController {
     }
     
     private func layoutOverlayView() {
-        var frame: CGRect = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds) * 2, CGRectGetHeight(self.view.bounds) * 2)
+        let frame: CGRect = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds) * 2, CGRectGetHeight(self.view.bounds) * 2)
         self.overlayView?.frame = frame;
     }
     
     private func updateMaskPath() {
-        var clipPath: UIBezierPath = UIBezierPath(rect: self.overlayView!.frame)
+        let clipPath: UIBezierPath = UIBezierPath(rect: self.overlayView!.frame)
         
         var maskPath: UIBezierPath? = nil
         switch (self.cropMode) {
@@ -347,7 +347,7 @@ class ImageCropViewController: UIViewController {
         clipPath.appendPath(maskPath!)
         clipPath.usesEvenOddFillRule = true
         
-        var pathAnimation: CABasicAnimation = CABasicAnimation(keyPath: "path")
+        let pathAnimation: CABasicAnimation = CABasicAnimation(keyPath: "path")
         pathAnimation.duration = CATransaction.animationDuration()
         pathAnimation.timingFunction = CATransaction.animationTimingFunction()
         
@@ -366,9 +366,9 @@ class ImageCropViewController: UIViewController {
     }
     
     private func croppedImage(image: UIImage, cropRect: CGRect) -> UIImage {
-        var image = image.fixImageOrientation()
-        let croppedCGImage: CGImageRef = CGImageCreateWithImageInRect(image.CGImage, cropRect);
-        let croppedImage: UIImage = UIImage(CGImage: croppedCGImage, scale: UIScreen.mainScreen().scale, orientation: image.imageOrientation)!
+        let image = image.fixImageOrientation()
+        let croppedCGImage: CGImageRef = CGImageCreateWithImageInRect(image.CGImage, cropRect)!
+        let croppedImage: UIImage = UIImage(CGImage: croppedCGImage, scale: UIScreen.mainScreen().scale, orientation: image.imageOrientation)
         return croppedImage
     }
     
@@ -427,8 +427,8 @@ class ImageCropViewController: UIViewController {
             self.scrollsToTop = false;
             self.decelerationRate = UIScrollViewDecelerationRateFast;
             self.delegate = self;
-            self.setTranslatesAutoresizingMaskIntoConstraints(false)
-            self.imageView?.setTranslatesAutoresizingMaskIntoConstraints(false)
+            self.translatesAutoresizingMaskIntoConstraints = false
+            self.imageView?.translatesAutoresizingMaskIntoConstraints = false
         }
         
         override var frame: CGRect {
@@ -483,7 +483,11 @@ class ImageCropViewController: UIViewController {
         private func prepareForResize() {
             if let imageView = self.imageView {
                 let boundsCenter = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds))
-                _pointToCenterAfterResize = self.convertPoint(boundsCenter, fromCoordinateSpace: imageView)
+                if #available(iOS 8.0, *) {
+                    _pointToCenterAfterResize = self.convertPoint(boundsCenter, fromCoordinateSpace: imageView)
+                } else {
+                    _pointToCenterAfterResize = self.convertPoint(boundsCenter, fromView: imageView)
+                }
                 _scaleToRestoreAfterResize = self.zoomScale
                 
                 if _scaleToRestoreAfterResize <= self.minimumZoomScale + CGFloat(FLT_EPSILON) {
@@ -622,10 +626,10 @@ extension UIImage {
             break
         }
         
-        var ctx: CGContextRef = CGBitmapContextCreate(nil, Int(self.size.width), Int(self.size.height),
+        let ctx: CGContextRef = CGBitmapContextCreate(nil, Int(self.size.width), Int(self.size.height),
             CGImageGetBitsPerComponent(self.CGImage), 0,
             CGImageGetColorSpace(self.CGImage),
-            CGImageGetBitmapInfo(self.CGImage))
+            CGImageGetBitmapInfo(self.CGImage).rawValue)!
         
         CGContextConcatCTM(ctx, transform)
         switch self.imageOrientation {
@@ -636,8 +640,8 @@ extension UIImage {
         }
         
         // And now we just create a new UIImage from the drawing context.
-        var cgimg: CGImageRef! = CGBitmapContextCreateImage(ctx);
-        var img: UIImage = UIImage(CGImage: cgimg)!
+        let cgimg: CGImageRef! = CGBitmapContextCreateImage(ctx);
+        let img: UIImage = UIImage(CGImage: cgimg)
         return img;
     }
 }
